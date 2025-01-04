@@ -9,6 +9,7 @@ public class BankHomePage {
     private SelenideElement searchRegionInput = $x("//input[@placeholder='Поиск региона']");
     private SelenideElement loginButton = $x("//i[@data-testid='icon_other/login']/parent::button");
     private SelenideElement privatePersonsButton = $x("//a[contains(text(), 'Частным лицам')]");
+
     /**
      * Выбор другого города
      * */
@@ -31,4 +32,5 @@ public class BankHomePage {
     public void openPrivatePersonsLogin(){
         privatePersonsButton.click();
     }
+
 }
