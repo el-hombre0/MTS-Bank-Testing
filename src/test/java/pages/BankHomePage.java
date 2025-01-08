@@ -5,10 +5,10 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BankHomePage {
-    private SelenideElement locationButton = $x("//button[@data-testid='button'][2]");
-    private SelenideElement searchRegionInput = $x("//input[@placeholder='Поиск региона']");
-    private SelenideElement loginButton = $x("//i[@data-testid='icon_other/login']/parent::button");
-    private SelenideElement privatePersonsButton = $x("//a[contains(text(), 'Частным лицам')]");
+    private final SelenideElement locationButton = $x("//button[@data-testid='button'][2]");
+    private final SelenideElement searchRegionInput = $x("//input[@placeholder='Поиск региона']");
+    private final SelenideElement loginButton = $x("//i[@data-testid='icon_other/login']/parent::button");
+    private final SelenideElement privatePersonsButton = $x("//a[contains(text(), 'Частным лицам')]");
 
     /**
      * Выбор другого города
@@ -22,7 +22,7 @@ public class BankHomePage {
     }
 
     public void clickSearchRegion(String region){
-        $x("//button[contains(text(), 'Саратов')]").click();
+        $x("//button[contains(text(), '" + region + "')]").click();
     }
 
     public void hoverLoginButton(){

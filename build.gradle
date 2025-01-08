@@ -22,6 +22,9 @@ dependencies {
     implementation 'com.codeborne:selenide:7.6.0'
     implementation 'io.rest-assured:rest-assured:5.5.0'
 
+//    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.16'
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.24.3'
+
     // Allure
     implementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.28.1'
     implementation group: 'io.qameta.allure', name: 'allure-commandline', version: '2.28.0', ext: 'pom'
