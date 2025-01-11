@@ -11,7 +11,8 @@ public class BankHomePage {
     private final SelenideElement loginButton = $x("//i[@data-testid='icon_other/login']/parent::button");
     private final SelenideElement privatePersonsButton = $x("//a[contains(text(), 'Частным лицам')]");
     private final SelenideElement creditsLink = $x("//a[contains(text(), 'Кредиты')]");
-
+    private final SelenideElement creditCardsButton = $x("//a[contains(text(), 'Карты')]");
+    private final SelenideElement creditCardMTSDengiLink = $x("//a[contains(text(), 'Кредитная карта МТС')][1]");
     /**
      * Выбор другого города
      */
@@ -38,6 +39,14 @@ public class BankHomePage {
     public void openCreditsPage() {
         creditsLink.shouldBe(visible);
         creditsLink.click();
+    }
+
+    public void openCreditCardsDropMenu(){
+        creditCardsButton.hover();
+    }
+
+    public void openCreditCardMTSDengiLinkPage(){
+        creditCardMTSDengiLink.click();
     }
 
 }

@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.BankHomePage;
+import pages.CreditCardMTSDengi;
 import pages.CustomerServiceLocations;
 import pages.PhonePage;
 
@@ -11,6 +12,7 @@ public class MainTest {
     private PhonePage phonePage;
 
     private CustomerServiceLocations customerServiceLocationsPage;
+    private CreditCardMTSDengi creditCardMTSDengi;
 
     @BeforeEach
     public void setup() {
@@ -20,6 +22,9 @@ public class MainTest {
 
         // Тесткейс 2
         customerServiceLocationsPage = new CustomerServiceLocations();
+
+        // Тесткейс 4
+        creditCardMTSDengi = new CreditCardMTSDengi();
     }
 
     private final static String BASEURL = "https://www.mtsbank.ru/";
@@ -27,7 +32,7 @@ public class MainTest {
     private final static String PHONE_NUMBER = "9991235622";
 
     /**
-     * Тесткейс 1
+     * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации:
      */
     @Test
     public void testNumberAuth() {
@@ -47,7 +52,7 @@ public class MainTest {
     }
 
     /**
-     * Тесткейс 2
+     * Тесткейс 2 - Проверка работы фильтров на странице отображения пунктов обслуживания клиентов
      */
     @Test
     public void testFilters() {
@@ -70,6 +75,25 @@ public class MainTest {
                 customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
             }
         }
+    }
+
+    /**
+     * Тесткейс 4 - Оформление кредитной карты
+     */
+    @Test
+    public void testMakingCreditCard() {
+        open(BASEURL);
+        bankHomePage.chooseOtherCity();
+        bankHomePage.searchOtherRegion(REGION);
+        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.openCreditCardsDropMenu();
+        bankHomePage.openCreditCardMTSDengiLinkPage();
+        creditCardMTSDengi.enterPhoneNumberInput(creditCardMTSDengi.generatePhoneNumber());
+        creditCardMTSDengi.enterBirthDateInput(creditCardMTSDengi.generateRandomBirthDate());
+        creditCardMTSDengi.enterClientName(creditCardMTSDengi.generateRandomFullName());
+        creditCardMTSDengi.enterEmail(creditCardMTSDengi.generateRandomEmail());
+        creditCardMTSDengi.pressNextButton();
+        creditCardMTSDengi.checkFormConfirmation();
     }
 
 }
