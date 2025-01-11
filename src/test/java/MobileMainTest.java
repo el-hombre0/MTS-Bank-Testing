@@ -1,30 +1,32 @@
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pages.BankHomePage;
-import pages.CreditCardMTSDengi;
-import pages.CustomerServiceLocations;
-import pages.PhonePage;
+import pages.*;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class MainTest {
+/**
+ * Класс тестирования мобильной версии
+ */
+public class MobileMainTest {
     private BankHomePage bankHomePage;
     private PhonePage phonePage;
-
     private CustomerServiceLocations customerServiceLocationsPage;
     private CreditCardMTSDengi creditCardMTSDengi;
+    private SmallBusinessPage smallBusinessPage;
+    private PaymentAccountPage paymentAccountPage;
 
     @BeforeEach
     public void setup() {
-        // Тесткейс 1
+        Configuration.browserSize = "430x932";
+
         bankHomePage = new BankHomePage();
         phonePage = new PhonePage();
-
-        // Тесткейс 2
         customerServiceLocationsPage = new CustomerServiceLocations();
-
-        // Тесткейс 4
         creditCardMTSDengi = new CreditCardMTSDengi();
+        smallBusinessPage = new SmallBusinessPage();
+        paymentAccountPage = new PaymentAccountPage();
     }
 
     private final static String BASEURL = "https://www.mtsbank.ru/";
@@ -94,6 +96,23 @@ public class MainTest {
         creditCardMTSDengi.enterEmail(creditCardMTSDengi.generateRandomEmail());
         creditCardMTSDengi.pressNextButton();
         creditCardMTSDengi.checkFormConfirmation();
+    }
+
+    /**
+     * Тесткейс 5 - Модальное окно условий обработки персональных данных
+     */
+    @Test
+    public void testInterestDepositsRates(){
+        open(BASEURL);
+        if(bankHomePage.checkCityChooseButtonExists()){
+            bankHomePage.chooseOtherCity();
+            bankHomePage.searchOtherRegion(REGION);
+            bankHomePage.clickSearchRegion(REGION);
+        }
+        bankHomePage.openSmallBusinessPage();
+        smallBusinessPage.openPaymentAccountPage();
+        paymentAccountPage.openMethodsOfPersonalDataProcessingModalWindow();
+        Assertions.assertEquals(3, paymentAccountPage.getPersonalDataProcessingTitlesLength());
     }
 
 }

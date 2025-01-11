@@ -13,11 +13,18 @@ public class BankHomePage {
     private final SelenideElement creditsLink = $x("//a[contains(text(), 'Кредиты')]");
     private final SelenideElement creditCardsButton = $x("//a[contains(text(), 'Карты')]");
     private final SelenideElement creditCardMTSDengiLink = $x("//a[contains(text(), 'Кредитная карта МТС')][1]");
+    private final SelenideElement interestDepositsRatesButton = $x("//div[contains(text(), 'Ставки по вкладам')]");
+    private final SelenideElement smallBusinessAndIPLink= $x("//a[contains(text(), 'Малый бизнес и ИП')]");
+
     /**
      * Выбор другого города
      */
     public void chooseOtherCity() {
         locationButton.click();
+    }
+
+    public boolean checkCityChooseButtonExists(){
+        return locationButton.exists();
     }
 
     public void searchOtherRegion(String region) {
@@ -47,6 +54,14 @@ public class BankHomePage {
 
     public void openCreditCardMTSDengiLinkPage(){
         creditCardMTSDengiLink.click();
+    }
+
+    public void openInterestDepositesRatesPage(){
+        interestDepositsRatesButton.click();
+    }
+
+    public void openSmallBusinessPage(){
+        smallBusinessAndIPLink.click();
     }
 
 }
