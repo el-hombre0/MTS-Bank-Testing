@@ -7,7 +7,7 @@ jobs:
       - name: "Использование main-репозитория"
         uses: actions/checkout@v3
       - name: "Запуск тестов"
-        run: ./gradle clean test
+        run: ./gradlew clean test
         continue-on-error: true
       - name: "Генерация allure report"
         uses: simple-elf/allure-report-action@master
