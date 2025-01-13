@@ -1,5 +1,7 @@
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -33,6 +35,8 @@ public class ParametrizedDesktopTest {
      * @param monthlyPayment ежемесячный платеж
      */
     @ParameterizedTest
+    @Description("Параметризованный тест расчета кредита наличными с вводом суммы и периода кредитования")
+    @DisplayName("Расчет кредита наличными")
     @CsvSource({"5,3500000,96468"})
     public void testCreditConditionsComputation(int loanPeriod, int loanAmount, int monthlyPayment) {
         open(BASEURL);

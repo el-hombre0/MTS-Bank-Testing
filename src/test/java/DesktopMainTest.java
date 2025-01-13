@@ -1,6 +1,8 @@
 import com.codeborne.selenide.Configuration;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.*;
 
@@ -35,9 +37,11 @@ public class DesktopMainTest {
     private final static String PHONE_NUMBER = "9991235623";
 
     /**
-     * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации:
+     * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации
      */
     @Test
+    @Description("Ввод неправильного номера телефона при аутентификации")
+    @DisplayName("Аутентификация по номеру телефона с неправильным кодом")
     public void testNumberAuth() {
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
@@ -60,6 +64,8 @@ public class DesktopMainTest {
      * Тесткейс 2 - Проверка работы фильтров на странице отображения пунктов обслуживания клиентов
      */
     @Test
+    @Description("Проверка работы фильтров на странице отображения пунктов обслуживания клиентов")
+    @DisplayName("Фильтрация точек обслуживания клиентов")
     public void testFilters() {
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
@@ -88,6 +94,8 @@ public class DesktopMainTest {
      * Тесткейс 4 - Оформление кредитной карты
      */
     @Test
+    @Description("Оформление кредитной карты МТС Деньги с вводом персональных данных")
+    @DisplayName("Оформление кредитной карты")
     public void testMakingCreditCard() {
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
@@ -109,6 +117,8 @@ public class DesktopMainTest {
      * Тесткейс 5 - Модальное окно условий обработки персональных данных
      */
     @Test
+    @Description("Проверка элементов модального окна условий обработки персональных данных")
+    @DisplayName("Условий обработки персональных данных")
     public void testPersonalDataProcessingConditions(){
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
