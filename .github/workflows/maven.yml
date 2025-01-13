@@ -6,16 +6,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK
+      - name: "Установка JDK"
         uses: actions/setup-java@v3
         with:
-          distribution: zulu
-          java-version: 17
+          distribution: oracle
+          java-version: 21
 
-      - name: Run tests
+      - name: "Запуск тестов"
         run: ./gradlew clean test
 
-      - name: Load test report history
+      - name: "Загрузка истории отчетов тестирования"
         uses: actions/checkout@v3
         if: always()
         continue-on-error: true
@@ -23,18 +23,22 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Build test report
+      - name: "Создание отчета тестирования"
         uses: simple-elf/allure-report-action@v1.7
         if: always()
+        id: allure-report
         with:
           gh_pages: gh-pages
           allure_history: allure-history
           allure_results: build/allure-results
+          allure_report: allure-report
 
-      - name: Publish test report
+
+      - name: "Публикация отчета тестирования"
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
