@@ -252,6 +252,7 @@ public class CreditCardMTSDengi {
     }
 
     public void pressNextButton() {
+        nextButton.scrollTo();
         nextButton.click();
     }
 

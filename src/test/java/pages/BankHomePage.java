@@ -15,6 +15,7 @@ public class BankHomePage {
     private final SelenideElement creditCardMTSDengiLink = $x("//a[contains(text(), 'Кредитная карта МТС')][1]");
     private final SelenideElement interestDepositsRatesButton = $x("//div[contains(text(), 'Ставки по вкладам')]");
     private final SelenideElement smallBusinessAndIPLink= $x("//a[contains(text(), 'Малый бизнес и ИП')]");
+    private final SelenideElement privatePersonsList = $x("//div[contains(text(), 'Чаcтным лицам')]");
 
     /**
      * Выбор другого города
@@ -61,6 +62,11 @@ public class BankHomePage {
     }
 
     public void openSmallBusinessPage(){
+        smallBusinessAndIPLink.click();
+    }
+
+    public void openSmallBusinessMobilePage(){
+        privatePersonsList.hover();
         smallBusinessAndIPLink.click();
     }
 

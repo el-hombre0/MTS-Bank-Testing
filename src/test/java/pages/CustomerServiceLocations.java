@@ -10,13 +10,16 @@ import static com.codeborne.selenide.Selenide.*;
 public class CustomerServiceLocations {
     private final SelenideElement officesAndATM = $x("//a[contains(text(), 'Офисы и банкоматы')]");
     private final SelenideElement filterButton = $x("//div[@data-testid='text'][contains(text(), 'Фильтр')]/parent::div/parent::div");
+    private final SelenideElement filterBurgerButton = $x("//button[@data-testid='button']");
+    private final SelenideElement filterCrossButton = $x("//div[@id='change_region_modal']/div/button[1]");
+    private final SelenideElement confirmFiltersButton = $x("//div[contains(text(), 'Применить')]/ancestor::button");
     private final SelenideElement replenishButton = $x("//button[contains(text(), 'Пополнить')]");
     private final SelenideElement qrCodeCheckbox = $x("//div[contains(text(), 'QR-Code (куаркод)')]");
     private final SelenideElement nfcCheckbox = $x("//div[contains(text(), 'NFC (беcконтактно)')]");
     private final SelenideElement workAroundTheClockChckbox = $x("//div[contains(text(), 'Работает круглосуточно')]");
     private final SelenideElement viewAsList = $x("//div[contains(text(), 'Списком')]/parent::button");
     public SelenideElement nextPageButton = $x("//*[name()='svg'][@data-testid='icon_baseX24/arrowRight']/parent::*");
-
+    public SelenideElement nextPageMobileButton = $x("//div/nav/button[last()]");
     public void enterCustomerServiceLocations() {
         officesAndATM.click();
     }
@@ -25,6 +28,13 @@ public class CustomerServiceLocations {
         filterButton.click();
     }
 
+    public void openFilterListViaBurger(){
+        filterBurgerButton.click();
+    }
+
+    public void confirmFilters(){
+        confirmFiltersButton.click();
+    }
 
     public void selectReplenish() {
         replenishButton.click();
@@ -44,6 +54,10 @@ public class CustomerServiceLocations {
 
     public void closeFiltersList() {
         filterButton.click();
+    }
+
+    public void closeFilterListViaCross(){
+        filterCrossButton.click();
     }
 
     public void selectListDisplaying() {
@@ -71,6 +85,7 @@ public class CustomerServiceLocations {
         }
 
         for (SelenideElement card : additionalServicesButton) {
+            card.scrollTo();
             card.click();
         }
 

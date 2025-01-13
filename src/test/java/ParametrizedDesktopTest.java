@@ -8,7 +8,7 @@ import pages.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class ParametrizedTest {
+public class ParametrizedDesktopTest {
     private final static String BASEURL = "https://www.mtsbank.ru/";
     private final static String REGION = "Москва";
 
@@ -45,6 +45,7 @@ public class ParametrizedTest {
         cashLoanPage.openCashLoanCalculationPage();
         switchTo().window(1);
         cashLoanPage.clearAndInputLoanAmountField(cashLoanPage.getLoanAmountInput(), loanAmount);
+        cashLoanPage.clickAloneOwnerButton();
         cashLoanPage.clearAndInputLoanPeriodField(cashLoanPage.getLoanPeriodInput(), loanPeriod);
         cashLoanPage.clickAloneOwnerButton();
         Assertions.assertEquals(String.valueOf(monthlyPayment), cashLoanPage.getMonthlyPaymentTextFiled().getText().replaceAll("[^0-9]", ""));

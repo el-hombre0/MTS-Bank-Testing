@@ -20,6 +20,8 @@ public class MobileMainTest {
     @BeforeEach
     public void setup() {
         Configuration.browserSize = "430x932";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.browser = "chrome";
 
         bankHomePage = new BankHomePage();
         phonePage = new PhonePage();
@@ -31,7 +33,7 @@ public class MobileMainTest {
 
     private final static String BASEURL = "https://www.mtsbank.ru/";
     private final static String REGION = "Москва";
-    private final static String PHONE_NUMBER = "9991235622";
+    private final static String PHONE_NUMBER = "9991235621";
 
     /**
      * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации:
@@ -49,7 +51,7 @@ public class MobileMainTest {
         for (int i = 0; i < 3; i++) {
             phonePage.enterIncorrectCode();
         }
-        phonePage.closeTryAfter5MinsModuleWindow();
+        phonePage.closeByClickEmptySpace();
 
     }
 
@@ -63,17 +65,17 @@ public class MobileMainTest {
         bankHomePage.searchOtherRegion(REGION);
         bankHomePage.clickSearchRegion(REGION);
         customerServiceLocationsPage.enterCustomerServiceLocations();
-        customerServiceLocationsPage.openFiltersList();
+        customerServiceLocationsPage.openFilterListViaBurger();
         customerServiceLocationsPage.selectReplenish();
         customerServiceLocationsPage.selectQrCode();
         customerServiceLocationsPage.selectNfc();
         customerServiceLocationsPage.selectWorkAroundTheClock();
-        customerServiceLocationsPage.closeFiltersList();
+        customerServiceLocationsPage.confirmFilters();
         customerServiceLocationsPage.selectListDisplaying();
-        while (customerServiceLocationsPage.nextPageButton.isEnabled()) {
+        while (customerServiceLocationsPage.nextPageMobileButton.isEnabled()) {
             customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
-            customerServiceLocationsPage.nextPageButton.click();
-            if (!customerServiceLocationsPage.nextPageButton.isEnabled()) {
+            customerServiceLocationsPage.nextPageMobileButton.click();
+            if (!customerServiceLocationsPage.nextPageMobileButton.isEnabled()) {
                 customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
             }
         }
@@ -102,15 +104,14 @@ public class MobileMainTest {
      * Тесткейс 5 - Модальное окно условий обработки персональных данных
      */
     @Test
-    public void testInterestDepositsRates(){
+    public void testPersonalDataProcessingConditions(){
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
             bankHomePage.chooseOtherCity();
             bankHomePage.searchOtherRegion(REGION);
             bankHomePage.clickSearchRegion(REGION);
         }
-        bankHomePage.openSmallBusinessPage();
-        smallBusinessPage.openPaymentAccountPage();
+        bankHomePage.openSmallBusinessMobilePage();
         paymentAccountPage.openMethodsOfPersonalDataProcessingModalWindow();
         Assertions.assertEquals(3, paymentAccountPage.getPersonalDataProcessingTitlesLength());
     }

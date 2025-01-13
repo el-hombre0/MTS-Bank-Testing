@@ -13,6 +13,7 @@ public class PaymentAccountPage {
     private final SelenideElement methodsOfPersonalDataProcessing = $x("//a[contains(text(), 'условиями обработки персональных данных')]");
     private final ElementsCollection personalDataProcessingTitles = $$x("//div[@data-testid='modal']/div[@data-testid='text']/strong");
     public void openMethodsOfPersonalDataProcessingModalWindow(){
+        methodsOfPersonalDataProcessing.scrollTo();
         methodsOfPersonalDataProcessing.click();
     }
     public int getPersonalDataProcessingTitlesLength(){

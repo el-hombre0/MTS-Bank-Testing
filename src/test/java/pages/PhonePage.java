@@ -9,7 +9,7 @@ public class PhonePage {
     private SelenideElement phoneSubmitButton = $x("//button[@type='submit']");
     private SelenideElement smsCodeInput = $x("//input[@id='otp']");
     private SelenideElement crossTryAfter5MinsModuleWindow = $x("//div[@data-testid='clear']");
-
+    private SelenideElement emptySpace = $x("//aside/div[2]");
     public void enterPhoneNumber(String phone){
         phoneInput.val(phone);
     }
@@ -23,5 +23,9 @@ public class PhonePage {
 
     public void closeTryAfter5MinsModuleWindow(){
         crossTryAfter5MinsModuleWindow.click();
+    }
+
+    public void closeByClickEmptySpace(){
+        emptySpace.click();
     }
 }

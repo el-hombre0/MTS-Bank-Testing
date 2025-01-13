@@ -20,7 +20,8 @@ public class DesktopMainTest {
     @BeforeEach
     public void setup() {
         Configuration.browserSize = "1920x1080";
-
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.browser = "chrome";
         bankHomePage = new BankHomePage();
         phonePage = new PhonePage();
         customerServiceLocationsPage = new CustomerServiceLocations();
@@ -31,7 +32,7 @@ public class DesktopMainTest {
 
     private final static String BASEURL = "https://www.mtsbank.ru/";
     private final static String REGION = "Москва";
-    private final static String PHONE_NUMBER = "9991235622";
+    private final static String PHONE_NUMBER = "9991235623";
 
     /**
      * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации:
@@ -39,9 +40,11 @@ public class DesktopMainTest {
     @Test
     public void testNumberAuth() {
         open(BASEURL);
-        bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        if(bankHomePage.checkCityChooseButtonExists()){
+            bankHomePage.chooseOtherCity();
+            bankHomePage.searchOtherRegion(REGION);
+            bankHomePage.clickSearchRegion(REGION);
+        }
         bankHomePage.hoverLoginButton();
         bankHomePage.openPrivatePersonsLogin();
         phonePage.enterPhoneNumber(PHONE_NUMBER);
@@ -59,9 +62,11 @@ public class DesktopMainTest {
     @Test
     public void testFilters() {
         open(BASEURL);
-        bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        if(bankHomePage.checkCityChooseButtonExists()){
+            bankHomePage.chooseOtherCity();
+            bankHomePage.searchOtherRegion(REGION);
+            bankHomePage.clickSearchRegion(REGION);
+        }
         customerServiceLocationsPage.enterCustomerServiceLocations();
         customerServiceLocationsPage.openFiltersList();
         customerServiceLocationsPage.selectReplenish();
@@ -85,9 +90,11 @@ public class DesktopMainTest {
     @Test
     public void testMakingCreditCard() {
         open(BASEURL);
-        bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        if(bankHomePage.checkCityChooseButtonExists()){
+            bankHomePage.chooseOtherCity();
+            bankHomePage.searchOtherRegion(REGION);
+            bankHomePage.clickSearchRegion(REGION);
+        }
         bankHomePage.openCreditCardsDropMenu();
         bankHomePage.openCreditCardMTSDengiLinkPage();
         creditCardMTSDengi.enterPhoneNumberInput(creditCardMTSDengi.generatePhoneNumber());
@@ -102,7 +109,7 @@ public class DesktopMainTest {
      * Тесткейс 5 - Модальное окно условий обработки персональных данных
      */
     @Test
-    public void testInterestDepositsRates(){
+    public void testPersonalDataProcessingConditions(){
         open(BASEURL);
         if(bankHomePage.checkCityChooseButtonExists()){
             bankHomePage.chooseOtherCity();

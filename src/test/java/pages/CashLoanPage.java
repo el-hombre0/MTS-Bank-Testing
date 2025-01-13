@@ -22,6 +22,11 @@ public class CashLoanPage {
         knowMoreButton.click();
     }
 
+    public void openCashLoanCalculationMobilePage() {
+        knowMoreButton.scrollTo();
+        knowMoreButton.click();
+    }
+
     public void clearAndInputLoanAmountField(SelenideElement elem, int loanAmount) {
         for (int i = 0; i < DEFAULT_LOAN_AMOUNT_LENGTH; i++) {
             elem.sendKeys(Keys.BACK_SPACE);
