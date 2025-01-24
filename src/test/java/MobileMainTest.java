@@ -1,9 +1,7 @@
 import com.codeborne.selenide.Configuration;
+import enums.StrConsts;
 import jdk.jfr.Description;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pages.*;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -11,13 +9,13 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Класс тестирования мобильной версии
  */
-public class MobileMainTest {
+public class MobileMainTest extends BaseTest{
     private BankHomePage bankHomePage;
     private PhonePage phonePage;
     private CustomerServiceLocations customerServiceLocationsPage;
     private CreditCardMTSDengi creditCardMTSDengi;
-    private SmallBusinessPage smallBusinessPage;
     private PaymentAccountPage paymentAccountPage;
+
 
     @BeforeEach
     public void setup() {
@@ -29,13 +27,9 @@ public class MobileMainTest {
         phonePage = new PhonePage();
         customerServiceLocationsPage = new CustomerServiceLocations();
         creditCardMTSDengi = new CreditCardMTSDengi();
-        smallBusinessPage = new SmallBusinessPage();
         paymentAccountPage = new PaymentAccountPage();
     }
 
-    private final static String BASEURL = "https://www.mtsbank.ru/";
-    private final static String REGION = "Москва";
-    private final static String PHONE_NUMBER = "9991235621";
 
     /**
      * Тесткейс 1 - Ввод неправильного номера телефона при аутентификации:
@@ -44,13 +38,13 @@ public class MobileMainTest {
     @Description("Ввод неправильного номера телефона при аутентификации")
     @DisplayName("Аутентификация по номеру телефона с неправильным кодом")
     public void testNumberAuth() {
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+        bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         bankHomePage.hoverLoginButton();
         bankHomePage.openPrivatePersonsLogin();
-        phonePage.enterPhoneNumber(PHONE_NUMBER);
+        phonePage.enterPhoneNumber(StrConsts.PHONE_NUMBER.toString());
         phonePage.pushSendPhoneNumberButton();
         for (int i = 0; i < 3; i++) {
             phonePage.enterIncorrectCode();
@@ -66,10 +60,10 @@ public class MobileMainTest {
     @Description("Проверка работы фильтров на странице отображения пунктов обслуживания клиентов")
     @DisplayName("Фильтрация точек обслуживания клиентов")
     public void testFilters() {
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+        bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         customerServiceLocationsPage.enterCustomerServiceLocations();
         customerServiceLocationsPage.openFilterListViaBurger();
         customerServiceLocationsPage.selectReplenish();
@@ -94,10 +88,10 @@ public class MobileMainTest {
     @Description("Оформление кредитной карты МТС Деньги с вводом персональных данных")
     @DisplayName("Оформление кредитной карты")
     public void testMakingCreditCard() {
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+        bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         bankHomePage.openCreditCardsDropMenu();
         bankHomePage.openCreditCardMTSDengiLinkPage();
         creditCardMTSDengi.enterPhoneNumberInput(creditCardMTSDengi.generatePhoneNumber());
@@ -115,11 +109,11 @@ public class MobileMainTest {
     @Description("Проверка элементов модального окна условий обработки персональных данных")
     @DisplayName("Условий обработки персональных данных")
     public void testPersonalDataProcessingConditions(){
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         if(bankHomePage.checkCityChooseButtonExists()){
             bankHomePage.chooseOtherCity();
-            bankHomePage.searchOtherRegion(REGION);
-            bankHomePage.clickSearchRegion(REGION);
+            bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+            bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         }
         bankHomePage.openSmallBusinessMobilePage();
         paymentAccountPage.openMethodsOfPersonalDataProcessingModalWindow();

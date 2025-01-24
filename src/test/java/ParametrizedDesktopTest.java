@@ -1,3 +1,4 @@
+import enums.StrConsts;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +11,7 @@ import pages.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class ParametrizedDesktopTest {
-    private final static String BASEURL = "https://www.mtsbank.ru/";
-    private final static String REGION = "Москва";
+public class ParametrizedDesktopTest extends BaseTest{
 
     private BankHomePage bankHomePage;
     private LoansPage loansPage;
@@ -27,22 +26,22 @@ public class ParametrizedDesktopTest {
     }
 
 
-    /**
-     * Тесткейс 3. Параметризованный тест расчета кредита наличными
-     *
-     * @param loanPeriod     срок кредита
-     * @param loanAmount     сумма кредита
-     * @param monthlyPayment ежемесячный платеж
-     */
+//    /**
+//     * Тесткейс 3. Параметризованный тест расчета кредита наличными
+//     *
+//     * @param loanPeriod     срок кредита
+//     * @param loanAmount     сумма кредита
+//     * @param monthlyPayment ежемесячный платеж
+//     */
     @ParameterizedTest
     @Description("Параметризованный тест расчета кредита наличными с вводом суммы и периода кредитования")
     @DisplayName("Расчет кредита наличными")
     @CsvSource({"5,3500000,96468"})
     public void testCreditConditionsComputation(int loanPeriod, int loanAmount, int monthlyPayment) {
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+        bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         bankHomePage.openCreditsPage();
         loansPage.unhoverCreditsPage();
         loansPage.openCashLoanDescriptionPage();

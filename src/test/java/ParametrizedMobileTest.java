@@ -1,4 +1,5 @@
 import com.codeborne.selenide.Configuration;
+import enums.StrConsts;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +12,7 @@ import pages.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class ParametrizedMobileTest {
-    private final static String BASEURL = "https://www.mtsbank.ru/";
-    private final static String REGION = "Москва";
+public class ParametrizedMobileTest extends BaseTest{
 
     private BankHomePage bankHomePage;
     private LoansPage loansPage;
@@ -23,7 +22,6 @@ public class ParametrizedMobileTest {
     @BeforeEach
     public void setup() {
         Configuration.browserSize = "430x932";
-//        Configuration.pageLoadStrategy = "eager";
         Configuration.browser = "chrome";
         bankHomePage = new BankHomePage();
         loansPage = new LoansPage();
@@ -43,10 +41,10 @@ public class ParametrizedMobileTest {
     @DisplayName("Расчет кредита наличными")
     @CsvSource({"5,3500000,96468"})
     public void testCreditConditionsComputation(int loanPeriod, int loanAmount, int monthlyPayment) {
-        open(BASEURL);
+        open(StrConsts.BASEURL.toString());
         bankHomePage.chooseOtherCity();
-        bankHomePage.searchOtherRegion(REGION);
-        bankHomePage.clickSearchRegion(REGION);
+        bankHomePage.searchOtherRegion(StrConsts.REGION.toString());
+        bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         bankHomePage.openCreditsPage();
         loansPage.openCashLoanDescriptionMobilePage();
         cashLoanPage.openCashLoanCalculationMobilePage();

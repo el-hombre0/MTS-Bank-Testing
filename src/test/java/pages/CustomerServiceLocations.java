@@ -56,10 +56,6 @@ public class CustomerServiceLocations {
         filterButton.click();
     }
 
-    public void closeFilterListViaCross(){
-        filterCrossButton.click();
-    }
-
     public void selectListDisplaying() {
         viewAsList.click();
     }
