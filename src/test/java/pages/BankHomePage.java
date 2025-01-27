@@ -14,7 +14,6 @@ public class BankHomePage {
     private final SelenideElement creditsLink = $x("//a[contains(text(), 'Кредиты')]");
     private final SelenideElement creditCardsButton = $x("//a[contains(text(), 'Карты')]");
     private final SelenideElement creditCardMTSDengiLink = $x("//a[contains(text(), 'Кредитная карта МТС')][1]");
-    private final SelenideElement interestDepositsRatesButton = $x("//div[contains(text(), 'Ставки по вкладам')]");
     private final SelenideElement smallBusinessAndIPLink= $x("//a[contains(text(), 'Малый бизнес и ИП')]");
     private final SelenideElement privatePersonsList = $x("//div[contains(text(), 'Чаcтным лицам')]");
 

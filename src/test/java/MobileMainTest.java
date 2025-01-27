@@ -3,6 +3,7 @@ import enums.StrConsts;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.*;
 import pages.*;
+import utils.RandomGenerator;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -12,8 +13,8 @@ import static com.codeborne.selenide.Selenide.open;
 public class MobileMainTest extends BaseTest{
     private BankHomePage bankHomePage;
     private PhonePage phonePage;
-    private CustomerServiceLocations customerServiceLocationsPage;
-    private CreditCardMTSDengi creditCardMTSDengi;
+    private CustomerServiceLocationsPage customerServiceLocationsPage;
+    private CreditCardMTSDengiPage creditCardMTSDengiPage;
     private PaymentAccountPage paymentAccountPage;
 
 
@@ -25,8 +26,8 @@ public class MobileMainTest extends BaseTest{
 
         bankHomePage = new BankHomePage();
         phonePage = new PhonePage();
-        customerServiceLocationsPage = new CustomerServiceLocations();
-        creditCardMTSDengi = new CreditCardMTSDengi();
+        customerServiceLocationsPage = new CustomerServiceLocationsPage();
+        creditCardMTSDengiPage = new CreditCardMTSDengiPage();
         paymentAccountPage = new PaymentAccountPage();
     }
 
@@ -72,13 +73,7 @@ public class MobileMainTest extends BaseTest{
         customerServiceLocationsPage.selectWorkAroundTheClock();
         customerServiceLocationsPage.confirmFilters();
         customerServiceLocationsPage.selectListDisplaying();
-        while (customerServiceLocationsPage.nextPageMobileButton.isEnabled()) {
-            customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
-            customerServiceLocationsPage.nextPageMobileButton.click();
-            if (!customerServiceLocationsPage.nextPageMobileButton.isEnabled()) {
-                customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
-            }
-        }
+        customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
     }
 
     /**
@@ -94,12 +89,16 @@ public class MobileMainTest extends BaseTest{
         bankHomePage.clickSearchRegion(StrConsts.REGION.toString());
         bankHomePage.openCreditCardsDropMenu();
         bankHomePage.openCreditCardMTSDengiLinkPage();
-        creditCardMTSDengi.enterPhoneNumberInput(creditCardMTSDengi.generatePhoneNumber());
-        creditCardMTSDengi.enterBirthDateInput(creditCardMTSDengi.generateRandomBirthDate());
-        creditCardMTSDengi.enterClientName(creditCardMTSDengi.generateRandomFullName());
-        creditCardMTSDengi.enterEmail(creditCardMTSDengi.generateRandomEmail());
-        creditCardMTSDengi.pressNextButton();
-        creditCardMTSDengi.checkFormConfirmation();
+
+        RandomGenerator randGenerator= new RandomGenerator();
+
+
+        creditCardMTSDengiPage.enterPhoneNumberInput(randGenerator.generatePhoneNumber());
+        creditCardMTSDengiPage.enterBirthDateInput(randGenerator.generateRandomBirthDate());
+        creditCardMTSDengiPage.enterClientName(randGenerator.generateRandomFullName());
+        creditCardMTSDengiPage.enterEmail(randGenerator.generateRandomEmail());
+        creditCardMTSDengiPage.pressNextButton();
+        creditCardMTSDengiPage.checkFormConfirmation();
     }
 
     /**

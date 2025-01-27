@@ -1,8 +1,8 @@
-import com.codeborne.selenide.Configuration;
 import enums.StrConsts;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.*;
 import pages.*;
+import utils.RandomGenerator;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.open;
 public class DesktopMainTest extends BaseTest{
     private BankHomePage bankHomePage;
     private PhonePage phonePage;
-    private CustomerServiceLocations customerServiceLocationsPage;
-    private CreditCardMTSDengi creditCardMTSDengi;
+    private CustomerServiceLocationsPage customerServiceLocationsPage;
+    private CreditCardMTSDengiPage creditCardMTSDengiPage;
     private SmallBusinessPage smallBusinessPage;
     private PaymentAccountPage paymentAccountPage;
 
@@ -23,8 +23,8 @@ public class DesktopMainTest extends BaseTest{
     public void setup() {
         bankHomePage = new BankHomePage();
         phonePage = new PhonePage();
-        customerServiceLocationsPage = new CustomerServiceLocations();
-        creditCardMTSDengi = new CreditCardMTSDengi();
+        customerServiceLocationsPage = new CustomerServiceLocationsPage();
+        creditCardMTSDengiPage = new CreditCardMTSDengiPage();
         smallBusinessPage = new SmallBusinessPage();
         paymentAccountPage = new PaymentAccountPage();
     }
@@ -75,13 +75,7 @@ public class DesktopMainTest extends BaseTest{
         customerServiceLocationsPage.selectWorkAroundTheClock();
         customerServiceLocationsPage.closeFiltersList();
         customerServiceLocationsPage.selectListDisplaying();
-        while (customerServiceLocationsPage.nextPageButton.isEnabled()) {
-            customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
-            customerServiceLocationsPage.nextPageButton.click();
-            if (!customerServiceLocationsPage.nextPageButton.isEnabled()) {
-                customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
-            }
-        }
+        customerServiceLocationsPage.processingCardsOfTerminalsAndATMs();
     }
 
     /**
@@ -99,12 +93,14 @@ public class DesktopMainTest extends BaseTest{
         }
         bankHomePage.openCreditCardsDropMenu();
         bankHomePage.openCreditCardMTSDengiLinkPage();
-        creditCardMTSDengi.enterPhoneNumberInput(creditCardMTSDengi.generatePhoneNumber());
-        creditCardMTSDengi.enterBirthDateInput(creditCardMTSDengi.generateRandomBirthDate());
-        creditCardMTSDengi.enterClientName(creditCardMTSDengi.generateRandomFullName());
-        creditCardMTSDengi.enterEmail(creditCardMTSDengi.generateRandomEmail());
-        creditCardMTSDengi.pressNextButton();
-        creditCardMTSDengi.checkFormConfirmation();
+
+        RandomGenerator randGenerator= new RandomGenerator();
+        creditCardMTSDengiPage.enterPhoneNumberInput(randGenerator.generatePhoneNumber());
+        creditCardMTSDengiPage.enterBirthDateInput(randGenerator.generateRandomBirthDate());
+        creditCardMTSDengiPage.enterClientName(randGenerator.generateRandomFullName());
+        creditCardMTSDengiPage.enterEmail(randGenerator.generateRandomEmail());
+        creditCardMTSDengiPage.pressNextButton();
+        creditCardMTSDengiPage.checkFormConfirmation();
     }
 
     /**
